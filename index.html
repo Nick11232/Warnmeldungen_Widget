@@ -97,7 +97,7 @@ const container = document.getElementById("warnings");
 
 try{
 
-const response = await fetch("https://warnung.bund.de/bbk.rss");
+const response = await fetch("https://api.allorigins.win/raw?url=https://warnung.bund.de/bbk.rss");
 const text = await response.text();
 
 const parser = new DOMParser();
@@ -162,6 +162,7 @@ setInterval(loadWarnings,60000);
 
 </body>
 </html>
+
 
 
 
