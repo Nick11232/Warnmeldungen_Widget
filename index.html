@@ -42,11 +42,12 @@ html,body{
 
 .header{
     text-align:center;
-    height:0px;
+    height:10px;
+	    background-color:transparent;
 }
 
 .header h1{
-    font-size:18px;
+    font-size:0px;
     color:#003366;
 }
 
@@ -56,6 +57,7 @@ html,body{
 #warningCard{
     height:250px;
     overflow:hidden;
+	background-color:transparent;
 }
 
 .sectionTitle{
@@ -75,15 +77,18 @@ html,body{
     padding:4px;
     margin-bottom:4px;
     border-radius:4px;
+	background-color:transparent;
 }
 
 .warning h3{
     font-size:11px;
+	color:white;
     margin-bottom:2px;
 }
 
 .warning p{
     font-size:10px;
+	color:white;
     line-height:1.2;
 }
 
@@ -98,7 +103,8 @@ html,body{
 /* WARNKARTE */
 
 #mapCard{
-    height:220px;
+    height:0px;
+	background-color:transparent;
 }
 
 #warnMap{
@@ -170,7 +176,7 @@ html,body{
 
     <div class="card" id="mapCard">
         <div class="sectionTitle">
-            BW Warnkarte
+            
         </div>
 
         <!-- Eigene Karte einsetzen -->
@@ -247,8 +253,6 @@ async function loadWarnings(){
                     .toLowerCase();
 
                 if(
-                    name.includes("östringen") ||
-                    name.includes("ostringen") ||
                     name.includes("karlsruhe")
                 ){
 
