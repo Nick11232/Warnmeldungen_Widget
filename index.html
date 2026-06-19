@@ -2,130 +2,151 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1614,height=2450">
-<title>DWD Wetterdashboard</title>
+<meta name="viewport" content="width=348,height=710,user-scalable=no">
+<title>Östringen Wetterdashboard</title>
 
 <style>
 *{
     box-sizing:border-box;
-}
-html,body{
     margin:0;
     padding:0;
+}
+
+html,body{
     width:348px;
     height:710px;
     overflow:hidden;
     font-family:Arial,Helvetica,sans-serif;
-    background:#e8edf2;
+    background:#e9edf2;
 }
 
 #container{
     width:348px;
     height:710px;
-    padding:20px;
+    padding:4px;
     display:flex;
     flex-direction:column;
-    gap:20px;
+    gap:4px;
 }
 
 .card{
-    background:#fff;
-    border-radius:15px;
-    box-shadow:0 4px 10px rgba(0,0,0,.15);
-    padding:20px;
+    background:#ffffff;
+    border-radius:6px;
+    padding:6px;
+    box-shadow:0 1px 3px rgba(0,0,0,.2);
 }
 
 .header{
     text-align:center;
+    height:60px;
 }
 
 .header h1{
-    margin:0;
-    font-size:54px;
+    font-size:18px;
     color:#003366;
 }
 
 #clock{
-    font-size:34px;
-    margin-top:10px;
+    font-size:11px;
+    margin-top:4px;
 }
 
-.row{
-    flex:1;
-    display:flex;
-    gap:20px;
+/* WARNUNGEN */
+
+#warningCard{
+    height:250px;
+    overflow:hidden;
 }
 
-.left{
-    flex:1;
-}
-
-.right{
-    width:600px;
-}
-
-.section-title{
-    margin:0 0 15px 0;
-    font-size:40px;
+.sectionTitle{
+    font-size:14px;
+    margin-bottom:4px;
     color:#003366;
 }
 
+#warnings{
+    height:220px;
+    overflow-y:auto;
+}
+
 .warning{
-    border-left:12px solid #c00000;
-    background:#fff0f0;
-    padding:15px;
-    margin-bottom:15px;
-    border-radius:8px;
+    border-left:4px solid #d60000;
+    background:#fff2f2;
+    padding:4px;
+    margin-bottom:4px;
+    border-radius:4px;
 }
 
 .warning h3{
-    margin:0 0 10px;
-    font-size:32px;
+    font-size:11px;
+    margin-bottom:2px;
 }
 
 .warning p{
-    margin:0;
-    font-size:26px;
-    line-height:1.4;
+    font-size:10px;
+    line-height:1.2;
 }
 
-.nowarning{
+.noWarning{
     text-align:center;
     color:green;
-    font-size:56px;
     font-weight:bold;
-    margin-top:150px;
+    font-size:18px;
+    margin-top:70px;
 }
 
-.map-frame{
+/* WARNKARTE */
+
+#mapCard{
+    height:220px;
+}
+
+#warnMap{
     width:100%;
-    height:100%;
-    border:none;
-    border-radius:10px;
+    height:180px;
+    object-fit:contain;
+}
+
+/* GRASLANDFEUERINDEX */
+
+#grassCard{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
 #grassValue{
-    font-size:120px;
     text-align:center;
+    font-size:70px;
     font-weight:bold;
-    margin-top:50px;
+    line-height:1;
 }
 
 #grassText{
     text-align:center;
-    font-size:40px;
-    margin-top:20px;
+    font-size:16px;
+    margin-top:8px;
 }
 
+#grassLocation{
+    text-align:center;
+    font-size:11px;
+    margin-top:8px;
+    color:#666;
+}
+
+/* GLFI Farben */
+
 .level1{color:#008000;}
-.level2{color:#b5c400;}
+.level2{color:#a0b000;}
 .level3{color:#ff9900;}
 .level4{color:#ff3300;}
 .level5{color:#990000;}
 
 .footer{
     text-align:center;
-    font-size:22px;
+    font-size:9px;
     color:#666;
 }
 </style>
@@ -135,76 +156,54 @@ html,body{
 <div id="container">
 
     <div class="card header">
-        <h1>DWD WETTERDASHBOARD</h1>
+        <h1>ÖSTRINGEN</h1>
         <div id="clock"></div>
     </div>
 
-    <!-- WARNUNGEN -->
-    <div class="row">
-
-        <div class="card left">
-
-            <h2 class="section-title">
-                DWD Warnungen Östringen
-            </h2>
-
-            <div id="warnings">
-                Lade Warnungen...
-            </div>
-
+    <div class="card" id="warningCard">
+        <div class="sectionTitle">
+            DWD Warnungen
         </div>
 
-        <div class="card right">
+        <div id="warnings">
+            Lade Warnungen...
+        </div>
+    </div>
 
-            <h2 class="section-title">
-                Baden-Württemberg Warnkarte
-            </h2>
+    <div class="card" id="mapCard">
+        <div class="sectionTitle">
+            BW Warnkarte
+        </div>
 
-            <iframe
-                class="map-frame"
-                src="https://www.dwd.de/DWD/warnungen/warnapp_gemeinden/json/warnungen_gemeinde_map_de.png">
-            </iframe>
+        <!-- Eigene Karte einsetzen -->
+        <img
+            id="warnMap"
+            src="https://www.dwd.de/DWD/warnungen/warnapp_gemeinden/json/warnungen_gemeinde_map_de.png"
+            alt="Warnkarte">
+    </div>
 
+    <div class="card" id="grassCard">
+
+        <div class="sectionTitle">
+            Graslandfeuerindex
+        </div>
+
+        <div id="grassValue" class="level1">
+            1
+        </div>
+
+        <div id="grassText">
+            Sehr geringe Gefahr
+        </div>
+
+        <div id="grassLocation">
+            Östringen / Landkreis Karlsruhe
         </div>
 
     </div>
 
-    <!-- GRASLANDFEUERINDEX -->
-    <div class="row">
-
-        <div class="card left">
-
-            <h2 class="section-title">
-                Graslandfeuerindex
-            </h2>
-
-            <div id="grassValue" class="level1">
-                -
-            </div>
-
-            <div id="grassText">
-                Keine Daten
-            </div>
-
-        </div>
-
-        <div class="card right">
-
-            <h2 class="section-title">
-                BW Graslandfeuerindex
-            </h2>
-
-            <iframe
-                class="map-frame"
-                src="https://www.dwd.de/DWD/warnungen/warnapp_gemeinden/json/warnungen_gemeinde_map_de.png">
-            </iframe>
-
-        </div>
-
-    </div>
-
-    <div class="card footer">
-        Automatische Aktualisierung alle 5 Minuten
+    <div class="footer">
+        Aktualisierung alle 5 Minuten
     </div>
 
 </div>
@@ -213,10 +212,15 @@ html,body{
 
 const REFRESH_INTERVAL = 300000;
 
+// Uhr
+
 function updateClock(){
+
     document.getElementById("clock").innerHTML =
         new Date().toLocaleString("de-DE");
 }
+
+// Warnungen
 
 async function loadWarnings(){
 
@@ -229,28 +233,31 @@ async function loadWarnings(){
             "https://www.dwd.de/DWD/warnungen/warnapp/json/warnings.json"
         );
 
-        let text = await response.text();
+        let text =
+            await response.text();
 
         text = text
             .replace(/^warnWetter\.loadWarnings\(/,"")
             .replace(/\);$/,"");
 
-        const data = JSON.parse(text);
+        const data =
+            JSON.parse(text);
 
         let html = "";
 
-        Object.values(data.warnings).forEach(region => {
+        Object.values(data.warnings)
+        .forEach(region => {
 
             region.forEach(warn => {
 
-                const regionName =
-                    (warn.regionName || "").toLowerCase();
+                const name =
+                    (warn.regionName || "")
+                    .toLowerCase();
 
                 if(
-                    regionName.includes("östringen") ||
-                    regionName.includes("ostringen") ||
-                    regionName.includes("landkreis karlsruhe") ||
-                    regionName.includes("karlsruhe")
+                    name.includes("östringen") ||
+                    name.includes("ostringen") ||
+                    name.includes("karlsruhe")
                 ){
 
                     html += `
@@ -267,8 +274,8 @@ async function loadWarnings(){
         if(html === ""){
 
             html =
-            '<div class="nowarning">' +
-            'KEINE WARNUNGEN<br>FÜR ÖSTRINGEN' +
+            '<div class="noWarning">' +
+            'KEINE WARNUNGEN' +
             '</div>';
 
         }
@@ -276,27 +283,22 @@ async function loadWarnings(){
         target.innerHTML = html;
 
     }
-    catch(err){
+    catch(e){
 
         target.innerHTML =
-        `<div class="warning">
-            <h3>DWD Abruf nicht möglich</h3>
-            <p>
-            GitHub Pages blockiert häufig
-            direkte DWD-Abfragen (CORS).
-            </p>
-        </div>`;
+        '<div class="warning">' +
+        '<h3>DWD nicht erreichbar</h3>' +
+        '<p>CORS-Sperre oder Netzwerkfehler.</p>' +
+        '</div>';
 
     }
+
 }
 
-function loadGrassfire(){
+// Graslandfeuerindex
+// HIER SPÄTER ECHTE DATEN EINBINDEN
 
-    /*
-       Platzhalter bis eine
-       serverseitige Datenquelle
-       angebunden wird.
-    */
+function loadGrassfire(){
 
     const level = 1;
 
@@ -306,8 +308,11 @@ function loadGrassfire(){
     const text =
         document.getElementById("grassText");
 
-    value.className = "level" + level;
-    value.innerHTML = level;
+    value.className =
+        "level" + level;
+
+    value.innerHTML =
+        level;
 
     switch(level){
 
@@ -338,20 +343,44 @@ function loadGrassfire(){
     }
 }
 
-async function refresh(){
+// Karten neu laden
+
+function refreshMap(){
+
+    const map =
+        document.getElementById("warnMap");
+
+    map.src =
+        "https://www.dwd.de/DWD/warnungen/warnapp_gemeinden/json/warnungen_gemeinde_map_de.png?t=" +
+        Date.now();
+}
+
+// Alles aktualisieren
+
+async function refreshAll(){
 
     updateClock();
 
     await loadWarnings();
 
     loadGrassfire();
+
+    refreshMap();
 }
 
-refresh();
+// Start
 
-setInterval(refresh, REFRESH_INTERVAL);
+refreshAll();
 
-setInterval(updateClock, 1000);
+setInterval(
+    refreshAll,
+    REFRESH_INTERVAL
+);
+
+setInterval(
+    updateClock,
+    1000
+);
 
 </script>
 
