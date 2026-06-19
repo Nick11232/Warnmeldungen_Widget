@@ -17,7 +17,11 @@ html,body{
     height:710px;
     overflow:hidden;
     font-family:Arial,Helvetica,sans-serif;
-    background:#e9edf2;
+    background-image:url("https://i.ibb.co/Jj5VHVzY/Vorlage-Divera-Ticker-5.png");
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-color:transparent;
 }
 
 #container{
@@ -38,7 +42,7 @@ html,body{
 
 .header{
     text-align:center;
-    height:60px;
+    height:0px;
 }
 
 .header h1{
@@ -46,10 +50,6 @@ html,body{
     color:#003366;
 }
 
-#clock{
-    font-size:11px;
-    margin-top:4px;
-}
 
 /* WARNUNGEN */
 
@@ -61,7 +61,7 @@ html,body{
 .sectionTitle{
     font-size:14px;
     margin-bottom:4px;
-    color:#003366;
+    color:#ffffff;
 }
 
 #warnings{
@@ -71,7 +71,7 @@ html,body{
 
 .warning{
     border-left:4px solid #d60000;
-    background:#fff2f2;
+    background:#ffffff;
     padding:4px;
     margin-bottom:4px;
     border-radius:4px;
@@ -157,12 +157,11 @@ html,body{
 
     <div class="card" id="warningCard">
         <div class="sectionTitle">
-            DWD Warnungen
+            
         </div>
         
 <div class="card header">
-    <h1>ÖSTRINGEN</h1>
-    <div id="clock"></div>
+    <h1></h1>
 </div>
         <div id="warnings">
             Lade Warnungen...
@@ -211,13 +210,7 @@ html,body{
 
 const REFRESH_INTERVAL = 300000;
 
-// Uhr
 
-function updateClock(){
-
-    document.getElementById("clock").innerHTML =
-        new Date().toLocaleString("de-DE");
-}
 
 // Warnungen
 
@@ -299,7 +292,7 @@ async function loadWarnings(){
 
 function loadGrassfire(){
 
-    const level = 1;
+    const level = 404;
 
     const value =
         document.getElementById("grassValue");
@@ -339,6 +332,12 @@ function loadGrassfire(){
             text.innerHTML =
             "Sehr hohe Gefahr";
             break;
+			
+		case 404:
+            text.innerHTML =
+            "In Arbeit";
+            break;	
+			
     }
 }
 
@@ -358,7 +357,7 @@ function refreshMap(){
 
 async function refreshAll(){
 
-    updateClock();
+
 
     await loadWarnings();
 
