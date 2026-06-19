@@ -2,170 +2,359 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Warnmeldungen Östringen</title>
+<meta name="viewport" content="width=1614,height=2450">
+<title>DWD Wetterdashboard</title>
 
 <style>
-
-body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-color:white;
+*{
+    box-sizing:border-box;
 }
 
-#wrapper{
-width:355px;
-height:217px;
-padding:20px;
-box-sizing:border-box;
-
-background-image:url("https://i.ibb.co/Jj5VHVzY/Vorlage-Divera-Ticker-5.png");
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
-
-margin-top:-5px;
-border-radius:0px;
-
-position:relative;
+html,body{
+    margin:0;
+    padding:0;
+    width:1614px;
+    height:2450px;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#e8edf2;
 }
 
-h1{
-font-size:18px;
-margin-bottom:18px;
-margin-top:0px;
-margin-left:23px;
+#container{
+    width:1614px;
+    height:2450px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+    padding:20px;
+}
+
+.header{
+    text-align:center;
+}
+
+.header h1{
+    margin:0;
+    font-size:54px;
+    color:#003366;
+}
+
+#clock{
+    font-size:34px;
+    margin-top:10px;
+}
+
+.row{
+    flex:1;
+    display:flex;
+    gap:20px;
+}
+
+.left{
+    flex:1;
+}
+
+.right{
+    width:600px;
+}
+
+.section-title{
+    margin:0 0 15px 0;
+    font-size:40px;
+    color:#003366;
 }
 
 .warning{
-background:#b30000;
-padding:15px;
-border-radius:20px;
-margin-bottom:40px;
+    border-left:12px solid #c00000;
+    background:#fff0f0;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:8px;
 }
 
-.warning h2{
-font-size:15px;
-margin:0 0 20px 0;
+.warning h3{
+    margin:0 0 10px;
+    font-size:32px;
 }
 
 .warning p{
-font-size:15px;
+    margin:0;
+    font-size:26px;
+    line-height:1.4;
 }
 
-.no-warning{
-background:#0f7a32;
-padding:20px;
-border-radius:20px;
-font-size:15px;
+.nowarning{
+    text-align:center;
+    color:green;
+    font-size:56px;
+    font-weight:bold;
+    margin-top:150px;
 }
 
-.disclaimer{
-position:absolute;
-bottom:3px;
-left:10px;
-right:10px;
-font-size:4px;
-opacity:0.8;
-line-height:1.2;
+.map-frame{
+    width:100%;
+    height:100%;
+    border:none;
+    border-radius:10px;
 }
 
+#grassValue{
+    font-size:120px;
+    text-align:center;
+    font-weight:bold;
+    margin-top:50px;
+}
+
+#grassText{
+    text-align:center;
+    font-size:40px;
+    margin-top:20px;
+}
+
+.level1{color:#008000;}
+.level2{color:#b5c400;}
+.level3{color:#ff9900;}
+.level4{color:#ff3300;}
+.level5{color:#990000;}
+
+.footer{
+    text-align:center;
+    font-size:22px;
+    color:#666;
+}
 </style>
 </head>
-
 <body>
 
-<div id="wrapper">
+<div id="container">
 
-<h1>⚠️ Warnmeldungen Östringen</h1>
+    <div class="card header">
+        <h1>DWD WETTERDASHBOARD</h1>
+        <div id="clock"></div>
+    </div>
 
-<div id="warnings">Lade aktuelle Warnmeldungen...</div>
+    <!-- WARNUNGEN -->
+    <div class="row">
 
-<div class="disclaimer">
-Quelle: Bundesamt für Bevölkerungsschutz und Katastrophenhilfe (BBK) – warnung.bund.de. 
-Privates Informationsangebot. Keine Gewähr für Aktualität, Richtigkeit oder Vollständigkeit.
-</div>
+        <div class="card left">
+
+            <h2 class="section-title">
+                DWD Warnungen Östringen
+            </h2>
+
+            <div id="warnings">
+                Lade Warnungen...
+            </div>
+
+        </div>
+
+        <div class="card right">
+
+            <h2 class="section-title">
+                Baden-Württemberg Warnkarte
+            </h2>
+
+            <iframe
+                class="map-frame"
+                src="https://www.dwd.de/DWD/warnungen/warnapp_gemeinden/json/warnungen_gemeinde_map_de.png">
+            </iframe>
+
+        </div>
+
+    </div>
+
+    <!-- GRASLANDFEUERINDEX -->
+    <div class="row">
+
+        <div class="card left">
+
+            <h2 class="section-title">
+                Graslandfeuerindex
+            </h2>
+
+            <div id="grassValue" class="level1">
+                -
+            </div>
+
+            <div id="grassText">
+                Keine Daten
+            </div>
+
+        </div>
+
+        <div class="card right">
+
+            <h2 class="section-title">
+                BW Graslandfeuerindex
+            </h2>
+
+            <iframe
+                class="map-frame"
+                src="https://www.dwd.de/DWD/warnungen/warnapp_gemeinden/json/warnungen_gemeinde_map_de.png">
+            </iframe>
+
+        </div>
+
+    </div>
+
+    <div class="card footer">
+        Automatische Aktualisierung alle 5 Minuten
+    </div>
 
 </div>
 
 <script>
 
-const city = "Östringen";"Boellen";"Böllen"
+const REFRESH_INTERVAL = 300000;
+
+function updateClock(){
+    document.getElementById("clock").innerHTML =
+        new Date().toLocaleString("de-DE");
+}
 
 async function loadWarnings(){
 
-const container = document.getElementById("warnings");
+    const target =
+        document.getElementById("warnings");
 
-try{
+    try{
 
-const response = await fetch("https://api.allorigins.win/raw?url=https://warnung.bund.de/bbk.rss");
-const text = await response.text();
+        const response = await fetch(
+            "https://www.dwd.de/DWD/warnungen/warnapp/json/warnings.json"
+        );
 
-const parser = new DOMParser();
-const xml = parser.parseFromString(text,"text/xml");
+        let text = await response.text();
 
-const items = xml.querySelectorAll("item");
+        text = text
+            .replace(/^warnWetter\.loadWarnings\(/,"")
+            .replace(/\);$/,"");
 
-container.innerHTML="";
+        const data = JSON.parse(text);
 
-let found=false;
+        let html = "";
 
-items.forEach(item=>{
+        Object.values(data.warnings).forEach(region => {
 
-const title=item.querySelector("title").textContent;
-const desc=item.querySelector("description").textContent;
+            region.forEach(warn => {
 
-if(title.includes(city) || desc.includes(city)){
+                const regionName =
+                    (warn.regionName || "").toLowerCase();
 
-found=true;
+                if(
+                    regionName.includes("östringen") ||
+                    regionName.includes("ostringen") ||
+                    regionName.includes("landkreis karlsruhe") ||
+                    regionName.includes("karlsruhe")
+                ){
 
-const div=document.createElement("div");
-div.className="warning";
+                    html += `
+                    <div class="warning">
+                        <h3>${warn.headline}</h3>
+                        <p>${warn.description || ""}</p>
+                    </div>`;
+                }
 
-div.innerHTML=`
-<h2>${title}</h2>
-<p>${desc}</p>
-`;
+            });
 
-container.appendChild(div);
+        });
 
+        if(html === ""){
+
+            html =
+            '<div class="nowarning">' +
+            'KEINE WARNUNGEN<br>FÜR ÖSTRINGEN' +
+            '</div>';
+
+        }
+
+        target.innerHTML = html;
+
+    }
+    catch(err){
+
+        target.innerHTML =
+        `<div class="warning">
+            <h3>DWD Abruf nicht möglich</h3>
+            <p>
+            GitHub Pages blockiert häufig
+            direkte DWD-Abfragen (CORS).
+            </p>
+        </div>`;
+
+    }
 }
 
-});
+function loadGrassfire(){
 
-if(!found){
+    /*
+       Platzhalter bis eine
+       serverseitige Datenquelle
+       angebunden wird.
+    */
 
-container.innerHTML=`
-<div class="no-warning">
-✅ Aktuell liegen keine Warnungen vor.
-</div>
-`;
+    const level = 1;
 
+    const value =
+        document.getElementById("grassValue");
+
+    const text =
+        document.getElementById("grassText");
+
+    value.className = "level" + level;
+    value.innerHTML = level;
+
+    switch(level){
+
+        case 1:
+            text.innerHTML =
+            "Sehr geringe Gefahr";
+            break;
+
+        case 2:
+            text.innerHTML =
+            "Geringe Gefahr";
+            break;
+
+        case 3:
+            text.innerHTML =
+            "Mittlere Gefahr";
+            break;
+
+        case 4:
+            text.innerHTML =
+            "Hohe Gefahr";
+            break;
+
+        case 5:
+            text.innerHTML =
+            "Sehr hohe Gefahr";
+            break;
+    }
 }
 
-}catch(err){
+async function refresh(){
 
-container.innerHTML=`
-<div class="warning">
-<h2>Fehler beim Laden der Warnmeldungen</h2>
-<p>Bitte Verbindung prüfen.</p>
-</div>
-`;
+    updateClock();
 
+    await loadWarnings();
+
+    loadGrassfire();
 }
 
-}
+refresh();
 
-loadWarnings();
-setInterval(loadWarnings,60000);
+setInterval(refresh, REFRESH_INTERVAL);
+
+setInterval(updateClock, 1000);
 
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
