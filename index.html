@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=348,height=710,user-scalable=no">
-<title>Östringen Wetterdashboard</title>
+<title>Östringen DWD Dashboard</title>
 
 <style>
 *{
@@ -34,89 +34,101 @@ html,body{
 }
 
 .card{
-    background: linear-gradient(
-        180deg,
-        rgba(0, 35, 80, 0.85) 0%,
-        rgba(0, 60, 130, 0.70) 100%
-    );
-    border-radius:6px;
-    padding:8px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(4px);
+
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:10px;
+
     box-shadow:0 2px 8px rgba(0,0,0,.35);
     color:white;
 }
 
-/* WARNUNGEN */
-#warningCard{
-    height:250px;
-    overflow:hidden;
-    background-color:transparent;
+.cardHeader{
+    background:linear-gradient(
+        90deg,
+        #002654 0%,
+        #003f88 100%
+    );
+
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+
+    padding:8px 10px;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+	
+	border-radius:10px 10px 0 0;
+
+    text-transform:uppercase;
 }
 
-.sectionTitle{
-    font-size:14px;
+#warningCard{
+    height:250px;
+    padding:0;
 }
 
 #warnings{
-    height:220px;
+    padding:8px;
+    height:130px;
     overflow:hidden;
 }
 
 .warning{
-    border-left:4px solid #d60000;
-    padding:6px;
-    margin-bottom:6px;
-    border-radius:4px;
     background:rgba(0,0,0,0.35);
+
+    border:1px solid #d8d8d8;
+    border-left:5px solid #d60000;
+
+    border-radius:8px;
+
+    padding:8px;
+    margin-bottom:6px;
 }
 
 .warning h3{
-    font-size:16px;
     color:white;
+    font-size:14px;
+    font-weight:bold;
     margin-bottom:4px;
 }
 
 .warning p{
-    font-size:12px;
     color:white;
-    line-height:1.3;
+    font-size:11px;
 }
 
 .noWarning{
+    background:white;
+
+    border:1px solid #d8d8d8;
+    border-left:5px solid #008000;
+
+    border-radius:8px;
+
+    padding:10px;
+
+    color:#003366;
     text-align:center;
-    color:White;
     font-weight:bold;
-    font-size:16px;
-	border-left:4px solid #d60000;
-    padding:6px;
-    margin-bottom:6px;
-    border-radius:4px;
-    background:rgba(0,0,0,0.35);
 }
 
-/* GLFI */
 #grassCard{
     flex:1;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    background:#0050A073;   /* gleiche Optik wie Warnungen */
-    border-radius:6px;
-    padding:8px;
-    box-shadow:0 1px 3px rgba(0,0,0,.2);
+    padding:0;
 }
 
 #grassfire{
     width:100%;
-    height:300px;
+    height:275px;
     object-fit:contain;
 }
 
 .footer{
     text-align:center;
+    color:white;
     font-size:9px;
-    color:#666;
 }
 </style>
 </head>
@@ -126,19 +138,33 @@ html,body{
 <div id="container">
 
     <!-- WARNUNGEN -->
-    <div class="card" id="warningCard">
-        <div id="warnings">Lade Warnungen...</div>
+   <div class="card" id="warningCard">
+
+    <div class="cardHeader">
+        <span>AMTLICHE WARNUNGEN</span>
     </div>
+
+    <div id="warnings">
+        Lade Warnungen...
+    </div>
+
+</div>
 
     <!-- GLFI -->
     <div class="card" id="grassCard">
-        <img id="grassfire"
-             src="https://www.wettergefahren.de/DWD/warnungen/agrar/glfi/glfi_stationen.png?0"
-             alt="Graslandfeuerindex">
+
+    <div class="cardHeader">
+        <span>GRASLANDFEUERINDEX</span>
     </div>
 
+    <img id="grassfire"
+         src="https://www.wettergefahren.de/DWD/warnungen/agrar/glfi/glfi_stationen.png?0"
+         alt="Graslandfeuerindex">
+
+</div>
+
     <div class="footer">
-        Aktualisierung alle 5 Minuten
+        Aktualisierung alle 5 Minuten | Quelle: Deutscher Wetterdienst (DWD)
     </div>
 
 </div>
@@ -166,7 +192,7 @@ async function loadWarnings(){
         const city = doc.querySelector('h2[id="Stadt Östringen"]');
 
         if(!city){
-            target.innerHTML = '<div class="noWarning">KEINE WARNUNGEN</div>';
+            target.innerHTML = '<div class="noWarning">AKTUELL KEINE WARNUNGEN</div>';
             return;
         }
 
@@ -194,7 +220,7 @@ async function loadWarnings(){
             `;
         });
 
-        target.innerHTML = htmlOut || '<div class="noWarning">AKTUELL KEINE WARNUNGEN</div>';
+        target.innerHTML = htmlOut || '<div class="noWarning">KEINE WARNUNGEN</div>';
 
     } catch(e){
         target.innerHTML =
