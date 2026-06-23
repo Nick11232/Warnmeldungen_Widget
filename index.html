@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=348,height=710,user-scalable=no">
-<title>Östringen DWD Dashboard</title>
+<title>Östringen Wetterdashboard</title>
 
 <style>
 *{
@@ -123,6 +123,26 @@ html,body{
     width:100%;
     height:275px;
     object-fit:contain;
+	border-radius:8px;
+    border:1px solid #d0d0d0;
+}
+
+#oestringenMarker{
+    position:absolute;
+
+    left:136px;
+    top:228px;
+
+    color:blue;
+    font-size:15px;
+    font-weight:bold;
+
+    text-shadow:
+        0 0 2px white,
+        0 0 4px white;
+
+    transform:translate(-50%,-100%);
+    pointer-events:none;
 }
 
 .footer{
@@ -160,8 +180,10 @@ html,body{
     <img id="grassfire"
          src="https://www.wettergefahren.de/DWD/warnungen/agrar/glfi/glfi_stationen.png?0"
          alt="Graslandfeuerindex">
-
-</div>
+		 
+	<div id="oestringenMarker">
+			📍
+	</div>
 
     <div class="footer">
         Aktualisierung alle 5 Minuten | Quelle: Deutscher Wetterdienst (DWD)
