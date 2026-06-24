@@ -213,17 +213,10 @@ async function loadWarnings(){
         const doc = parser.parseFromString(html,"text/html");
 
         const city = doc.querySelector('h2[id="Stadt Östringen"]');
+        const table = city?.nextElementSibling;
 
-        if(!city){
+        if(!city || !table){
             target.innerHTML = '<div class="noWarning">AKTUELL KEINE WARNUNGEN</div>';
-            return;
-        }
-
-        const table = city.nextElementSibling;
-
-        if(!table){
-            target.innerHTML = '<div class="noWarning">KEINE WARNUNGEN</div>';
-            return;
         }
 
         let htmlOut = "";
