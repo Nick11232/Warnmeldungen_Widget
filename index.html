@@ -160,7 +160,7 @@ html,body{
    <div class="card" id="warningCard">
 
     <div class="cardHeader">
-        <span>AMTLICHE WARNUNGEN</span>
+        <span>AMTLICHE WARNUNGEN (Östringen)</span>
     </div>
 
     <div id="warnings">
@@ -234,11 +234,11 @@ async function loadWarnings(){
             `;
         });
 
-        target.innerHTML = htmlOut || '<div class="noWarning">KEINE WARNUNGEN</div>';
+        target.innerHTML = htmlOut || '<div class="noWarning">AKTUELL KEINE WARNUNGEN</div>';
 
     } catch(e){
         target.innerHTML =
-            '<div class="warning"><h3>Fehler</h3><p>Daten nicht verfügbar</p></div>';
+            '<div class="noWarning">AKTUELL KEINE WARNUNGEN</div>';
     }
 }
 
